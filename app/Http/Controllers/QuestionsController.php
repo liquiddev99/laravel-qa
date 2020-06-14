@@ -54,7 +54,12 @@ class QuestionsController extends Controller
      */
     public function show(Question $question)
     {
-        //
+//    	dd($question->body);
+	    $question->increment('views');
+	    // Dòng increment trên để tăng lượng views lên 1, tương đương với đoạn code:
+//	    $question->views = $question->views + 1;
+//	    $question->save();
+	      return view('questions.show', compact('question'));
     }
 
     /**
