@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
 });
 
 Auth::routes();
@@ -24,3 +24,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('questions', 'QuestionsController')->except('show');
 
 Route::get('/questions/{slug}', 'QuestionsController@show')->name('questions.show');
+
+//Route::post('/question/{question}/answers', 'AnswerController@store')->name('answers.store');
+Route::resource('questions.answer', 'AnswersController')->except(['index', 'create', 'show']);

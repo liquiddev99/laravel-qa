@@ -102,7 +102,7 @@ class QuestionsController extends Controller
      */
     public function destroy(Question $question)
     {
-    	$this->authorize('delelte', $question);
+    	$this->authorize('delete', $question);
         $question->delete();
         return redirect()->route('questions.index')->with('success', 'You are deleted question successfully!');
     }
