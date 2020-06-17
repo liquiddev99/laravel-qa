@@ -17,7 +17,7 @@
 							<a title="This answer is not useful" class="vote-down off">
 								Vote down
 							</a>
-							<a title="Click to mark as favorite answer (Click again to undo)" class="favorite">
+							<a title="Click to mark as favorite answer (Click again to undo)" class="{{ $answer->status }}">
 								Check
 							</a>
 						</div>
