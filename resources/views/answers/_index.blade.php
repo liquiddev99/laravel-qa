@@ -17,9 +17,24 @@
 							<a title="This answer is not useful" class="vote-down off">
 								Vote down
 							</a>
-							<a title="Click to mark as favorite answer (Click again to undo)" class="{{ $answer->status }}">
-								Check
-							</a>
+							@can ('accept', $answer)
+								<a title="Click to mark as favorite answer (Click again to undo)"
+								   onclick="event.preventDefault(); document.getElementById('accept-answer-{{ $answer->id }}').submit();"
+								   class="{{ $answer->status }}">
+									Check
+								</a>
+								<form style="display: none;" id="accept-answer-{{ $answer->id }}"
+								      action="{{ route('answers.accept', $answer->id) }}" method="POST">
+									@csrf
+								</form>
+							@else
+								@if($answer->is_best)
+									<a title="This is best answer"
+									   class="{{ $answer->status }}">
+										Check
+									</a>
+								@endif
+							@endcan
 						</div>
 						<div class="media-body">
 							{{ $answer->body }}
@@ -32,7 +47,8 @@
 										@endcan
 										{{--  @if(Auth::user()->can('delete', $question)) ... @endif--}}
 										@can('delete', $answer)
-											<form class="form-delete" action="{{ route('questions.answer.destroy', [$question->id, $answer->id]) }}"
+											<form class="form-delete"
+											      action="{{ route('questions.answer.destroy', [$question->id, $answer->id]) }}"
 											      method="post">
 												@csrf
 												@method('DELETE')
